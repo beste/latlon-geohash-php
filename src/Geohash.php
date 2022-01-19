@@ -116,10 +116,6 @@ final class Geohash
      */
     public static function decode(string $geohash): array
     {
-        $geohash = strtolower($geohash);
-
-        self::assertValidGeohash($geohash, true);
-
         $bounds = self::bounds($geohash);
 
         $latMin = $bounds['sw']['lat'];
