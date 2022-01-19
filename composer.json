@@ -1,0 +1,52 @@
+{
+    "name": "beste/latlon-geohash",
+    "type": "library",
+    "description": "Gustavo Niemeyer's geocoding system",
+    "keywords": ["geohash", "geocoding"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérôme Gamez",
+            "email": "jerome@gamez.name"
+        }
+    ],
+    "require": {
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0"
+    },
+    "require-dev": {
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.1",
+        "phpunit/phpunit": "^9.5.11"
+    },
+    "autoload": {
+        "files": ["src/Geohash.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Beste\\Geohash\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "clean": "rm -rf .build && mkdir .build",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "phpunit": "vendor/bin/phpunit",
+        "tests": [
+            "@phpstan",
+            "@phpunit"
+        ]
+    },
+    "scripts-descriptions": {
+        "clean": "Recreates ",
+        "phpstan": "Runs static analysis with PHPStan",
+        "phpunit": "Runs tests with PHPUnit",
+        "tests": "Runs static analysis and test suites"
+    }
+}
