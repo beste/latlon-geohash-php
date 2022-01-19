@@ -1,19 +1,26 @@
 # Geohash
 
+[![Current version](https://img.shields.io/packagist/v/beste/latlon-geohash.svg?logo=composer)](https://packagist.org/packages/beste/latlon-geohash)
+[![Supported PHP version](https://img.shields.io/static/v1?logo=php&label=PHP&message=~7.4.0%20||%20~8.0.0%20||%20~8.1.0&color=777bb4)](https://packagist.org/packages/beste/latlon-geohash)
+[![Tests](https://github.com/beste/latlon-geohash-php/workflows/Tests/badge.svg)](https://github.com/beste/latlon-geohash-php/actions)
+[![Discord](https://img.shields.io/discord/807679292573220925.svg?color=7289da&logo=discord)](https://discord.gg/Yacm7unBsr)
+[![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
+
 Library to convert a [geohash](https://en.wikipedia.org/wiki/Geohash) to/from a latitude/longitude point, and to
 determine bounds of a geohash cell and find neighbours of a geohash.
 
 This is a PHP implementation based on [chrisveness/latlon-geohash](https://github.com/chrisveness/latlon-geohash).
 More information (with interactive conversion) at 
-([www.movable-type.co.uk/scripts/geohash.html](https://www.movable-type.co.uk/scripts/geohash.html)).
+[www.movable-type.co.uk/scripts/geohash.html](https://www.movable-type.co.uk/scripts/geohash.html).
 
 ## Usage
 
 ```php
 use Beste\Geohash;
 
-// encode latitude/longitude point to geohash of given precision (number of characters in resulting geohash);
-// if precision is not specified, it is inferred from precision of latitude/longitude values.
+// encode latitude/longitude point to geohash of given precision (number of
+// characters in resulting geohash); if precision is not specified, it is
+// inferred from precision of latitude/longitude values.
 Geohash::encode(float $lat, float $lon, ?int $precision = null)
 
 // return { lat, lon } of centre of given geohash, to appropriate precision.
