@@ -6,6 +6,13 @@ namespace Beste;
 
 use InvalidArgumentException;
 
+/**
+ * Geohash: Gustavo Niemeyer's geocoding system.
+ *
+ * Based on the JS implementation by Chris Veness
+ *
+ * @see https://github.com/chrisveness/latlon-geohash
+ */
 final class Geohash
 {
     private const base32 = '0123456789bcdefghjkmnpqrstuvwxyz';
