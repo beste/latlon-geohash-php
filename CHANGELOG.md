@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+* Fixed error message when providing an invalid longitude
+
 ## [1.0.0] - 2022-01-19
 
 Initial release

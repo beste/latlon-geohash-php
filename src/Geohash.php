@@ -34,7 +34,7 @@ final class Geohash
         }
 
         if ($lon < $lonMin || $lon > $lonMax) {
-            throw new InvalidArgumentException("The longitude must be between $latMin and $latMax");
+            throw new InvalidArgumentException("The longitude must be between $lonMin and $lonMax");
         }
 
         if (($precision !== null) && ($precision < $precisionMin || $precision > $precisionMax)) {
