@@ -1,8 +1,9 @@
 parameters:
-	level: max
+	level: 9
 
 	paths:
 		- src/
 		- tests/
 
-	tmpDir: .build/phpstan/
+includes:
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

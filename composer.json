@@ -14,11 +14,11 @@
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
     },
     "require-dev": {
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^1.4",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpstan/phpstan-strict-rules": "^1.1",
-        "phpunit/phpunit": "^9.5.11"
+        "phpstan/extension-installer": "^1.3.1",
+        "phpstan/phpstan": "^1.10.44",
+        "phpstan/phpstan-phpunit": "^1.3.15",
+        "phpstan/phpstan-strict-rules": "^1.5.2",
+        "phpunit/phpunit": "^10.4.2"
     },
     "autoload": {
         "files": ["src/Geohash.php"]
@@ -35,18 +35,19 @@
         }
     },
     "scripts": {
-        "clean": "rm -rf .build && mkdir .build",
-        "phpstan": "vendor/bin/phpstan analyse",
-        "phpunit": "vendor/bin/phpunit",
-        "tests": [
-            "@phpstan",
-            "@phpunit"
+        "analyse": [
+            "XDEBUG_MODE=off vendor/bin/phpstan"
+        ],
+        "analyze": "@analyse",
+        "test": [
+            "@analyse",
+            "@test-units"
+        ],
+        "test-units": [
+            "vendor/bin/phpunit"
+        ],
+        "test-coverage": [
+            "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text"
         ]
-    },
-    "scripts-descriptions": {
-        "clean": "Recreates ",
-        "phpstan": "Runs static analysis with PHPStan",
-        "phpunit": "Runs tests with PHPUnit",
-        "tests": "Runs static analysis and test suites"
     }
 }

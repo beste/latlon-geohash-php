@@ -2,14 +2,24 @@ name: Tests
 
 on:
   pull_request:
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - 'composer.json'
   push:
-    branches:
-      - 'main'
+    branches: ['main']
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - 'composer.json'
+  workflow_dispatch:
 
 jobs:
   tests:
     name: PHP ${{ matrix.php }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -24,18 +34,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup cache environment
         id: extcache
         uses: shivammathur/cache-extensions@v1
         with:
           php-version: ${{ matrix.php }}
-          extensions: ${{ env.extensions }}
           key: ${{ env.key }}
 
       - name: Cache extensions
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.extcache.outputs.dir }}
           key: ${{ steps.extcache.outputs.key }}
@@ -45,22 +54,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: ${{ env.extensions }}
           tools: composer, pecl
           coverage: xdebug
-        env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: "ramsey/composer-install@v2"
 
-      - name: Setup problem matchers for PHP
-        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+      - name: Setup Problem Matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse
-
-      - name: Setup Problem Matchers for PHPUnit
-        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+        run: vendor/bin/phpstan
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --testdox --coverage-text
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text

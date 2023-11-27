@@ -44,5 +44,5 @@ composer require beste/latlon-geohash
 ## Running tests
 
 ```shell
-composer run tests
+composer test
 ```

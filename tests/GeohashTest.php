@@ -68,7 +68,7 @@ class GeohashTest extends TestCase
     /**
      * @return iterable<array<float|int|null>>
      */
-    public function provideEncodeParameters(): iterable
+    public static function provideEncodeParameters(): iterable
     {
         yield [52.51662414148685, 13.378843229770698, null];
         yield [52.51662414148685, 13.378843229770698, 1];
@@ -91,7 +91,7 @@ class GeohashTest extends TestCase
     /**
      * @return iterable<array<float|int|null>>
      */
-    public function provideInvalidEncodeParameters(): iterable
+    public static function provideInvalidEncodeParameters(): iterable
     {
         yield [-90.01, 0, null];
         yield [90.01, 0, null];
@@ -104,7 +104,7 @@ class GeohashTest extends TestCase
     /**
      * @return iterable<string[]>
      */
-    public function provideGeohashes(): iterable
+    public static function provideGeohashes(): iterable
     {
         yield ['u33db2q5t8k9'];
         yield ['u33db2q5t8k'];
@@ -123,7 +123,7 @@ class GeohashTest extends TestCase
     /**
      * @return iterable<string[]>
      */
-    public function provideInvalidGeohashes(): iterable
+    public static function provideInvalidGeohashes(): iterable
     {
         yield ['a'];
     }
@@ -131,7 +131,7 @@ class GeohashTest extends TestCase
     /**
      * @return iterable<string, string[]>
      */
-    public function provideInvalidAdjacentParameters(): iterable
+    public static function provideInvalidAdjacentParameters(): iterable
     {
         yield 'invalid direction' => ['u', 'x'];
         yield 'empty geohash' => ['', 'n'];
