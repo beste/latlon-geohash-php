@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+* Dropped support for PHP < 8.1
+* Added support for PHP 8.3
+
 ## [1.1.0]
 
 Added support for php 8.2 ([#2](https://github.com/beste/latlon-geohash-php/pull/2))
