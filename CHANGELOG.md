@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Added support for PHP 8.4
+
 ## [1.2.0]
 
 * Dropped support for PHP < 8.1
