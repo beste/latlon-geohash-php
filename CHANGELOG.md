@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.3.0 - 2024-12-20
 
 * Added support for PHP 8.4
 
