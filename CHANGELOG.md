@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.4.0 - 2025-01-19
 
 * Dropped support for PHP < 8.3
 
