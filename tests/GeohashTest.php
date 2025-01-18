@@ -6,40 +6,33 @@ namespace Beste\Geohash\Tests;
 
 use Beste\Geohash;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class GeohashTest extends TestCase
 {
-    /**
-     * @dataProvider provideInvalidEncodeParameters
-     */
+    #[DataProvider('provideInvalidEncodeParameters')]
     public function testItRejectsInvalidEncodeParameters(float $lat, float $lon, ?int $precision): void
     {
         $this->expectException(InvalidArgumentException::class);
         Geohash::encode($lat, $lon, $precision);
     }
 
-    /**
-     * @dataProvider provideInvalidAdjacentParameters
-     */
+    #[DataProvider('provideInvalidAdjacentParameters')]
     public function testItRejectsInvalidAdjacentParameters(string $geohash, string $direction): void
     {
         $this->expectException(InvalidArgumentException::class);
         Geohash::adjacent($geohash, $direction);
     }
 
-    /**
-     * @dataProvider provideInvalidGeohashes
-     */
+    #[DataProvider('provideInvalidGeohashes')]
     public function testItRejectsInvalidDecodeParameters(string $geohash): void
     {
         $this->expectException(InvalidArgumentException::class);
         Geohash::decode($geohash);
     }
 
-    /**
-     * @dataProvider provideEncodeParameters
-     */
+    #[DataProvider('provideEncodeParameters')]
     public function testItEncodesAndDecodesValues(float $lat, float $lon, ?int $precision): void
     {
         $encoded = Geohash::encode($lat, $lon, $precision);
@@ -50,9 +43,7 @@ class GeohashTest extends TestCase
         self::assertSame($encoded, $reEncoded);
     }
 
-    /**
-     * @dataProvider provideGeohashes
-     */
+    #[DataProvider('provideGeohashes')]
     public function testItHasNeighbours(string $geohash): void
     {
         $neighbours = Geohash::neighbours($geohash);
