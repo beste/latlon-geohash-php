@@ -26,10 +26,11 @@ jobs:
         php:
           - "8.3"
           - "8.4"
+          - "8.5"
 
     env:
       extensions: ctype, dom, intl, json, mbstring, openssl, xml, zip, zlib
-      key: cache-v1 # can be any string, change to clear the extension cache.
+      key: cache-${{ matrix.php }}
 
     steps:
       - name: Checkout code
@@ -40,10 +41,11 @@ jobs:
         uses: shivammathur/cache-extensions@v1
         with:
           php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
           key: ${{ env.key }}
 
       - name: Cache extensions
-        uses: actions/cache@v5
+        uses: actions/cache@v5.0.2
         with:
           path: ${{ steps.extcache.outputs.dir }}
           key: ${{ steps.extcache.outputs.key }}
