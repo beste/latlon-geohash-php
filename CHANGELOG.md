@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.5.0 - 2026-02-03
 
 * Added support for PHP 8.5
 * Added PHPStan type definitions for improved static analysis
