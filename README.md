@@ -2,7 +2,7 @@
 
 [![Current version](https://img.shields.io/packagist/v/beste/latlon-geohash.svg?logo=composer)](https://packagist.org/packages/beste/latlon-geohash)
 [![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/beste/latlon-geohash)](https://packagist.org/packages/beste/latlon-geohash)
-[![Tests](https://github.com/beste/latlon-geohash-php/workflows/Tests/badge.svg)](https://github.com/beste/latlon-geohash-php/actions)
+[![Tests](https://github.com/beste/latlon-geohash-php/actions/workflows/tests.yml/badge.svg)](https://github.com/beste/latlon-geohash-php/actions/workflows/tests.yml)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
 Library to convert a [geohash](https://en.wikipedia.org/wiki/Geohash) to/from a latitude/longitude point, and to
