@@ -36,6 +36,8 @@ final class Geohash
     private const base32 = '0123456789bcdefghjkmnpqrstuvwxyz';
 
     /**
+     * Encodes a latitude/longitude into a geohash with the requested precision.
+     *
      * @throws InvalidArgumentException
      */
     public static function encode(float $lat, float $lon, ?int $precision = null): string
@@ -128,7 +130,7 @@ final class Geohash
     }
 
     /**
-     * @param string $geohash
+     * Decodes a geohash into the center point of its cell.
      *
      * @return LatLonShape
      */
@@ -159,6 +161,8 @@ final class Geohash
     }
 
     /**
+     * Returns the southwest and northeast bounds of a geohash cell.
+     *
      * @return BoundsShape
      */
     public static function bounds(string $geohash): array
@@ -211,6 +215,16 @@ final class Geohash
         ];
     }
 
+    /**
+     * Returns the adjacent geohash in the given direction.
+     *
+     * Adjacent geohashes share the same parent prefix, with the final character
+     * replaced based on the desired direction (recursing at borders as needed).
+     *
+     * @param non-empty-string $direction
+     *
+     * @return non-empty-string
+     */
     public static function adjacent(string $geohash, string $direction): string
     {
         $geohash = strtolower($geohash);
@@ -248,7 +262,8 @@ final class Geohash
     }
 
     /**
-     * @param string $geohash
+     * Returns all eight adjacent geohashes surrounding the given geohash.
+     *
      * @return NeighboursShape
      */
     public static function neighbours(string $geohash): array
