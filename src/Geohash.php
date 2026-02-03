@@ -12,6 +12,24 @@ use InvalidArgumentException;
  * Based on the JS implementation by Chris Veness
  *
  * @see https://github.com/chrisveness/latlon-geohash
+ *
+ * @phpstan-type BoundsShape array{
+ *      sw: array{lat: float, lon: float},
+ *      ne: array{lat: float, lon: float}
+ *  }
+ *
+ * @phpstan-type NeighboursShape array{
+ *      n: non-empty-string,
+ *      ne: non-empty-string,
+ *      e: non-empty-string,
+ *      se: non-empty-string,
+ *      s: non-empty-string,
+ *      sw: non-empty-string,
+ *      w: non-empty-string,
+ *      nw: non-empty-string,
+ *  }
+ *
+ * @phpstan-type LatLonShape array{lat: float, lon: float}
  */
 final class Geohash
 {
@@ -112,7 +130,7 @@ final class Geohash
     /**
      * @param string $geohash
      *
-     * @return array{lat: float, lon: float}
+     * @return LatLonShape
      */
     public static function decode(string $geohash): array
     {
@@ -141,10 +159,7 @@ final class Geohash
     }
 
     /**
-     * @return array{
-     *     sw: array{lat: float, lon: float},
-     *     ne: array{lat: float, lon: float}
-     * }
+     * @return BoundsShape
      */
     public static function bounds(string $geohash): array
     {
@@ -234,16 +249,7 @@ final class Geohash
 
     /**
      * @param string $geohash
-     * @return array{
-     *     n: string,
-     *     ne: string,
-     *     e: string,
-     *     se: string,
-     *     s: string,
-     *     sw: string,
-     *     w: string,
-     *     nw: string,
-     * }
+     * @return NeighboursShape
      */
     public static function neighbours(string $geohash): array
     {
