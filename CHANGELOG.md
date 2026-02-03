@@ -3,6 +3,9 @@
 ## Unreleased
 
 * Added support for PHP 8.5
+* Added PHPStan type definitions for improved static analysis
+* Improved code documentation
+* Enhanced test coverage and added descriptive labels for all test cases
 
 ## 1.4.0 - 2025-01-19
 
