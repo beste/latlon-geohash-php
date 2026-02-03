@@ -33,7 +33,7 @@ use InvalidArgumentException;
  */
 final class Geohash
 {
-    private const base32 = '0123456789bcdefghjkmnpqrstuvwxyz';
+    private const string base32 = '0123456789bcdefghjkmnpqrstuvwxyz';
 
     /**
      * Encodes a latitude/longitude into a geohash with the requested precision.
@@ -65,7 +65,7 @@ final class Geohash
             $latDecimals = self::numberOfDecimals($lat);
             $lonDecimals = self::numberOfDecimals($lon);
 
-            foreach(range(1, 12) as $targetPrecision) {
+            foreach(range($precisionMin, $precisionMax) as $targetPrecision) {
                 $hash = self::encode($lat, $lon, $targetPrecision);
                 $position = self::decode($hash);
 
@@ -78,9 +78,9 @@ final class Geohash
                 if ($lat === $latPosition && $lon === $lonPosition) {
                     return $hash;
                 }
-
-                $precision = 12; // Set to maximum
             }
+
+            $precision = $precisionMax;
         }
 
         $idx = 0; // index into base32 map
@@ -233,32 +233,38 @@ final class Geohash
         self::assertValidGeohash($geohash, false);
         self::assertValidDirection($direction);
 
-        $neighbour = [
+        $neighbourLookup = [
             'n' => [ 'p0r21436x8zb9dcf5h7kjnmqesgutwvy', 'bc01fg45238967deuvhjyznpkmstqrwx' ],
             's' => [ '14365h7k9dcfesgujnmqp0r2twvyx8zb', '238967debc01fg45kmstqrwxuvhjyznp' ],
             'e' => [ 'bc01fg45238967deuvhjyznpkmstqrwx', 'p0r21436x8zb9dcf5h7kjnmqesgutwvy' ],
             'w' => [ '238967debc01fg45kmstqrwxuvhjyznp', '14365h7k9dcfesgujnmqp0r2twvyx8zb' ],
         ];
 
-        $border = [
+        $borderLookup = [
             'n' =>  [ 'prxz',     'bcfguvyz' ],
             's' =>  [ '028b',     '0145hjnp' ],
             'e' =>  [ 'bcfguvyz', 'prxz'     ],
             'w' =>  [ '0145hjnp', '028b'     ],
         ];
 
-        $lastChar = substr($geohash, -1);
-        $parent = substr($geohash, 0, -1);
+        $suffixChar = substr($geohash, -1);
+        $parentPrefix = substr($geohash, 0, -1);
 
-        $type = strlen($geohash) % 2;
+        $parity = strlen($geohash) % 2;
 
         // check for edge-cases which don't share common prefix
-        if ($parent !== '' && strpos($border[$direction][$type], $lastChar) !== false) {
-            $parent = self::adjacent($parent, $direction);
+        if ($parentPrefix !== '' && str_contains($borderLookup[$direction][$parity], $suffixChar)) {
+            $parentPrefix = self::adjacent($parentPrefix, $direction);
         }
 
-        // append letter for direction to parent
-        return $parent . self::base32[strpos($neighbour[$direction][$type], $lastChar)];
+        $suffixIndex = strpos($neighbourLookup[$direction][$parity], $suffixChar);
+        assert($suffixIndex !== false && isset(self::base32[$suffixIndex]));
+
+        /** @var non-empty-string $adjacentSuffixChar */
+        $adjacentSuffixChar = self::base32[$suffixIndex];
+
+        // append computed geohash character to parent
+        return $parentPrefix . $adjacentSuffixChar;
     }
 
     /**
@@ -291,8 +297,6 @@ final class Geohash
         assert($point !== false);
 
         $decimals = substr($string, $point + 1);
-        assert(ctype_digit($decimals));
-
         $decimals = rtrim($decimals, '0');
 
         return strlen($decimals);
@@ -305,7 +309,7 @@ final class Geohash
         }
 
         foreach (str_split($geohash) as $char) {
-            if (strpos(self::base32, $char) === false) {
+            if (!str_contains(self::base32, $char)) {
                 throw new InvalidArgumentException('Invalid geohash');
             }
         }
