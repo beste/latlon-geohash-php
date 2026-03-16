@@ -39,7 +39,7 @@ jobs:
           tools: composer, pecl
           coverage: xdebug
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: "ramsey/composer-install@v4"
 
       - name: Setup Problem Matchers
         run: |
