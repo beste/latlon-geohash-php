@@ -15,10 +15,10 @@
     },
     "require-dev": {
         "phpstan/extension-installer": "^1.4.3",
-        "phpstan/phpstan": "^2.1.1",
-        "phpstan/phpstan-phpunit": "^2.0.3",
-        "phpstan/phpstan-strict-rules": "^2.0.1",
-        "phpunit/phpunit": "^11.5.3"
+        "phpstan/phpstan": "^2.1.51",
+        "phpstan/phpstan-phpunit": "^2.0.16",
+        "phpstan/phpstan-strict-rules": "^2.0.10",
+        "phpunit/phpunit": "^11.5.55"
     },
     "autoload": {
         "files": ["src/Geohash.php"]
