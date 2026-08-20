@@ -27,6 +27,9 @@ jobs:
           - "8.3"
           - "8.4"
           - "8.5"
+        include:
+          - php: "8.6"
+            composer-options: "--ignore-platform-req=php+"
 
     steps:
       - name: Checkout code
@@ -40,6 +43,8 @@ jobs:
           coverage: xdebug
 
       - uses: "ramsey/composer-install@v4"
+        with:
+          composer-options: ${{ matrix.composer-options }}
 
       - name: Setup Problem Matchers
         run: |
